@@ -1,0 +1,32 @@
+{
+  "name": "fireball-fireworks-sdk-client",
+  "version": "0.1.0",
+  "description": "Fireball RGS client SDK for JavaScript (browser) — framework-agnostic",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/unit/*.test.js",
+    "smoke": "node examples/node-smoke.js"
+  },
+  "keywords": [
+    "fireball",
+    "rgs",
+    "sdk",
+    "signalr"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@microsoft/signalr": "^8.0.7"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

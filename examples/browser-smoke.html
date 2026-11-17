@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fireball JS SDK smoke</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem;
+        background: #111;
+        color: #eee;
+      }
+      button {
+        margin-right: 0.5rem;
+        padding: 0.5rem 1rem;
+      }
+      pre {
+        background: #222;
+        padding: 1rem;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fireball JS SDK smoke</h1>
+    <p>
+      Serve this folder over HTTP (e.g.
+      <code>npx serve .</code>) so ESM imports work.
+    </p>
+    <button id="run">init + demoAuthorize</button>
+    <button id="gci">GCI ready</button>
+    <pre id="out"></pre>
+    <script type="module">
+      import {
+        FireballClient,
+        setFireballLogLevel,
+        LogLevels,
+      } from '../src/index.js'
+
+      setFireballLogLevel(LogLevels.Information)
+      const out = document.getElementById('out')
+      const log = (x) => {
+        out.textContent +=
+          typeof x === 'string' ? x + '\n' : JSON.stringify(x, null, 2) + '\n'
+      }
+
+      const client = new FireballClient()
+
+      document.getElementById('run').onclick = async () => {
+        try {
+          const session = await client.init({
+            operatorId: 'smoke-test',
+            gameId: 'smoke-game',
+            token: 'smoke-token',
+            environment: 'development',
+            gameMode: 'fun',
+          })
+          log({ connectionId: session.connectionId })
+          const auth = await client.demoAuthorize({ balance: 100000 })
+          log({ balance: auth.Balance, isDemo: client.isDemo })
+        } catch (e) {
+          log(String(e?.Reason ?? e?.message ?? e))
+        }
+      }
+
+      document.getElementById('gci').onclick = async () => {
+        await client.gci.init({ environment: 'development' })
+        client.gci.sendLoadingComplete()
+        client.gci.sendReadyToPlay()
+        log('GCI events sent')
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+/** Event name constants (Unity FireballGCIEvent + fireball-gci.js). */
+export const GCI_EVENTS = Object.freeze({
+  FROM_GAME: Object.freeze({
+    LOADING_STARTED: 'game_loading_started',
+    LOADING_PROGRESS: 'game_loading_progress',
+    LOADING_COMPLETE: 'game_loading_complete',
+    READY_PLAY: 'game_ready_play',
+    AUDIO_VOLUME: 'game_audio_volume',
+    BET_TURBO: 'game_bet_turbo',
+    BET_PLACED: 'game_bet_placed',
+    BET_RESULT: 'game_bet_result',
+    BET_UPDATE: 'game_bet_update',
+    BALANCE_UPDATED: 'game_balance_updated',
+    JACKPOT_UPDATED: 'game_jackpot_updated',
+    AUTOPLAY_STARTED: 'game_autoplay_started',
+    AUTOPLAY_COMPLETE: 'game_autoplay_complete',
+    BONUS_FEATURE_STARTED: 'game_bonus_feature_started',
+    BONUS_FEATURE_COMPLETE: 'game_bonus_feature_complete',
+    OPEN_URL: 'game_open_url',
+    SPLASH_SCREEN_VISIBLE: 'game_splash_screen_visible',
+    CONFIRM_VISIBLE: 'game_confirm_visible',
+    BUY_FEATURE_VISIBLE: 'game_buy_feature_visible',
+    OPEN_DEPOSIT_MENU: 'game_open_deposit_menu',
+    ERROR_MESSAGE: 'game_error_message',
+    LOCK_INTERACTION: 'game_lock_interaction',
+    CLOSED: 'game_closed',
+    INTEGRATION_ERROR: 'integration_error',
+  }),
+  TO_GAME: Object.freeze({
+    AUDIO_VOLUME: 'operator_audio_volume',
+    BET_TURBO: 'operator_bet_turbo',
+    BET_PLACE: 'operator_bet_place',
+    BET_UPDATE: 'operator_bet_update',
+    UPDATE_BALANCE: 'operator_update_balance',
+    STOP_AUTOPLAY: 'operator_stop_autoplay',
+    VISIBLE_HELP: 'operator_visible_help',
+    VISIBLE_PAYTABLE: 'operator_visible_paytable',
+    CONFIRMED_ACTION: 'operator_confirmed_action',
+    PAUSE_GAME: 'operator_pause_game',
+    CLOSE_GAME: 'operator_close_game',
+  }),
+})
+
+export const VisibilityOption = Object.freeze({
+  Hide: 0,
+  Show: 1,
+  Toggle: 2,
+})
