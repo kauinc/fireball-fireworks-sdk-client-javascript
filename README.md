@@ -1,1 +1,2 @@
-# fireball-fireworks-sdk-client-javascript
+# Fireworks SDK client for JavaScript
+
