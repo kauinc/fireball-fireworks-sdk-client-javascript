@@ -1,4 +1,4 @@
-# fireball-fireworks-sdk-client (JavaScript)
+# Fireworks SDK client for JavaScript
 
 Framework-agnostic Fireball RGS client SDK for the browser.
 
