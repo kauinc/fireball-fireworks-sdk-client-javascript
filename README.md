@@ -1,6 +1,6 @@
 # fireball-fireworks-sdk-client (JavaScript)
 
-Framework-agnostic Fireball RGS client SDK for the browser (and Node 18+ for smoke tests).
+Framework-agnostic Fireball RGS client SDK for the browser.
 
 Same role as the Unity package `com.fireball.unitysdk`: connect to Fireball, authorize, send game messages over HTTP router + SignalR, and talk to the operator shell via GCI.
 
@@ -56,7 +56,7 @@ fireball.gci.sendLoadingComplete()
 fireball.gci.sendReadyToPlay()
 ```
 
-## API (Phase 1)
+## API
 
 | Method | Description |
 | --- | --- |
