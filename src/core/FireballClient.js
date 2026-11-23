@@ -1,6 +1,7 @@
 import { Communicator } from '../communicator/Communicator.js'
 import { getFireballGCI } from '../gci/FireballGCI.js'
 import { SignalRMessenger } from '../messenger/SignalRMessenger.js'
+import { Translation } from '../modules/Translation.js'
 import { AuthRequest } from '../models/AuthRequest.js'
 import { AuthResponse, parseAuthResponse } from '../models/AuthResponse.js'
 import { BalanceRequest } from '../models/BalanceRequest.js'
@@ -36,6 +37,8 @@ export class FireballClient {
     this._communicator = new Communicator()
     this._networkChecker = new NetworkChecker(500)
     this._gci = getFireballGCI()
+    /** @type {Translation|null} */
+    this._translation = null
     this._messenger = null
     this._currentSession = null
     this._customRouterUrl = ''
@@ -66,6 +69,14 @@ export class FireballClient {
 
   get gci() {
     return this._gci
+  }
+
+  /** Lazy Translation API module (Unity Fireball.Translation equivalent). */
+  get translation() {
+    if (!this._translation) {
+      this._translation = new Translation(this._communicator, this._logger)
+    }
+    return this._translation
   }
 
   get lastActionId() {
