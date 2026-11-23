@@ -50,6 +50,17 @@ export {
 
 export { parseSessionFromUrl, parseUrlParams, URL_PARAMS } from './tools/urlData.js'
 export {
+  CurrencyHelper,
+  setSession as setCurrencySession,
+  formatMoney as formatCurrencyMoney,
+  formatMoneyNumbersOnly,
+  isCoinCurrency,
+  isVirtualCurrency,
+  isCryptoCurrency,
+  isFiatCurrency,
+  getDefaultBetMultiplier,
+} from './tools/CurrencyHelper.js'
+export {
   generateActionId,
   generateConnectionToken,
   getNextDeviceSequence,

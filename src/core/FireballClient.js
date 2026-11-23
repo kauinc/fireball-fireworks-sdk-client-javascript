@@ -17,6 +17,7 @@ import {
   NetworkChecker,
   onTabVisibility,
 } from '../network/NetworkChecker.js'
+import { CurrencyHelper } from '../tools/CurrencyHelper.js'
 import { generateConnectionToken } from '../tools/ids.js'
 import { createLogger, setLogLevel } from '../tools/logger.js'
 import { parseSessionFromUrl, URL_PARAMS } from '../tools/urlData.js'
@@ -242,6 +243,7 @@ export class FireballClient {
         this._currentSession.multiplier = auth.Multiplier
       }
 
+      CurrencyHelper.setSession(this._currentSession)
       return auth
     } catch (e) {
       throw e
@@ -283,6 +285,7 @@ export class FireballClient {
         Extra: this._currentSession.extra,
       })
 
+      CurrencyHelper.setSession(this._currentSession)
       return response
     } catch (e) {
       throw ErrorResponse.customError(null, String(e), 0)
