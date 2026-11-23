@@ -42,6 +42,12 @@ export { PingRequest, PING_REQUEST_NAME } from './models/PingRequest.js'
 export { FireballGCI, getFireballGCI } from './gci/FireballGCI.js'
 export { GCI_EVENTS, VisibilityOption } from './gci/gciEvents.js'
 
+export { Translation } from './modules/Translation.js'
+export {
+  flattenTranslation,
+  parseTranslationResponse,
+} from './modules/TranslationData.js'
+
 export { parseSessionFromUrl, parseUrlParams, URL_PARAMS } from './tools/urlData.js'
 export {
   generateActionId,

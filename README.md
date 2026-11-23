@@ -68,6 +68,7 @@ fireball.gci.sendReadyToPlay()
 | `resendFailedRequest()` | Flag last failed request for retry flow |
 | `goHomePage()` | Navigate to `home` URL or GCI close |
 | `gci` | Operator ↔ game bridge |
+| `translation.getTranslation(gameId, languageIsoCode)` | Fetch CMS pack from `/translations/v1/translate` |
 
 Events: `connectionError`, `serverMessage`, `broadcastMessage`, `jackpotUpdate`.
 
