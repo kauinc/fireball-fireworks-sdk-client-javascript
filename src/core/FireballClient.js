@@ -2,6 +2,7 @@ import { Communicator } from '../communicator/Communicator.js'
 import { getFireballGCI } from '../gci/FireballGCI.js'
 import { SignalRMessenger } from '../messenger/SignalRMessenger.js'
 import { Translation } from '../modules/Translation.js'
+import { Transactions } from '../modules/Transactions.js'
 import { AuthRequest } from '../models/AuthRequest.js'
 import { AuthResponse, parseAuthResponse } from '../models/AuthResponse.js'
 import { BalanceRequest } from '../models/BalanceRequest.js'
@@ -40,6 +41,8 @@ export class FireballClient {
     this._gci = getFireballGCI()
     /** @type {Translation|null} */
     this._translation = null
+    /** @type {Transactions|null} */
+    this._transactions = null
     this._messenger = null
     this._currentSession = null
     this._customRouterUrl = ''
@@ -78,6 +81,35 @@ export class FireballClient {
       this._translation = new Translation(this._communicator, this._logger)
     }
     return this._translation
+  }
+
+  /** Lazy Transactions / replay API (Unity GetTransactionsList / GetReplaysList). */
+  get transactions() {
+    if (!this._transactions) {
+      this._transactions = new Transactions(
+        this._communicator,
+        () => this._currentSession,
+        () => this.isAuth,
+        this._logger,
+      )
+    }
+    return this._transactions
+  }
+
+  /**
+   * @param {{ startIndex?: number, includeGameStates?: boolean }} [options]
+   * @returns {Promise<import('../models/Transaction.js').TransactionsList>}
+   */
+  getTransactionsList(options) {
+    return this.transactions.getTransactionsList(options)
+  }
+
+  /**
+   * @param {string} shortReplayId
+   * @returns {Promise<import('../models/Transaction.js').Transaction[]>}
+   */
+  getReplaysList(shortReplayId) {
+    return this.transactions.getReplaysList(shortReplayId)
   }
 
   get lastActionId() {
