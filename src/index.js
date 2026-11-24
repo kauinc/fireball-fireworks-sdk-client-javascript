@@ -47,6 +47,17 @@ export {
   flattenTranslation,
   parseTranslationResponse,
 } from './modules/TranslationData.js'
+export { Transactions } from './modules/Transactions.js'
+export {
+  Replay,
+  ReplayList,
+  Transaction,
+  TransactionsList,
+  parseReplay,
+  parseTransaction,
+  parseTransactionsList,
+  parseReplaysList,
+} from './models/Transaction.js'
 
 export { parseSessionFromUrl, parseUrlParams, URL_PARAMS } from './tools/urlData.js'
 export {
