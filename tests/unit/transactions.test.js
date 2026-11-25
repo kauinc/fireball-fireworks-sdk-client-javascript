@@ -83,6 +83,11 @@ describe('Replay.parseGameState', () => {
     assert.equal(new Replay().parseGameState(), null)
     assert.equal(new Replay({ GameState: 'nope' }).parseGameState(), null)
   })
+
+  it('accepts already-parsed object gameState', () => {
+    const gs = { WalletPhase: 'Settled', LockedBets: [] }
+    assert.deepEqual(new Replay({ GameState: gs }).parseGameState(), gs)
+  })
 })
 
 describe('Transactions module', () => {

@@ -42,7 +42,7 @@ export function parseReplay(raw) {
   const src = raw && typeof raw === 'object' ? raw : {}
   return new Replay({
     Id: src.Id ?? src.id,
-    GameState: src.GameState ?? src.gameState,
+    GameState: src.GameState ?? src.gameState ?? src.game_state,
     Timestamp: src.Timestamp ?? src.timestamp,
   })
 }
@@ -96,7 +96,11 @@ export function parseReplaysList(json) {
   if (!payload || typeof payload !== 'object') {
     throw new Error('Replays: parse error — expected object')
   }
-  const listRaw = payload.Replays ?? payload.replays
+  // Direct body, or common { data: { replays } } / { data: [...] } wrappers.
+  const root = payload.data ?? payload.Data ?? payload
+  const listRaw = Array.isArray(root)
+    ? root
+    : (root.Replays ?? root.replays ?? payload.Replays ?? payload.replays)
   if (!Array.isArray(listRaw)) return []
   return listRaw.map(parseTransaction)
 }
@@ -119,18 +123,21 @@ export class Replay {
    */
   constructor(data = {}) {
     this.Id = asString(data.Id)
-    this.GameState = asString(data.GameState)
+    // Keep string or object — some gateways already deserialize jsonb.
+    this.GameState = data.GameState ?? ''
     this.Timestamp = asDate(data.Timestamp)
   }
 
   /**
-   * Parse GameState JSON string into an object (or typed shape via caller).
+   * Parse GameState JSON string (or pass-through object) into an object.
    * @returns {object|null}
    */
   parseGameState() {
-    if (!this.GameState) return null
+    const raw = this.GameState
+    if (raw == null || raw === '') return null
+    if (typeof raw === 'object') return raw
     try {
-      const parsed = JSON.parse(this.GameState)
+      const parsed = JSON.parse(String(raw))
       return parsed && typeof parsed === 'object' ? parsed : null
     } catch {
       return null
